@@ -28,6 +28,10 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'article')]
     private ?Categorie $categorie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Article')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Fournisseur $fournisseur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +93,18 @@ class Article
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getFournisseur(): ?Fournisseur
+    {
+        return $this->fournisseur;
+    }
+
+    public function setFournisseur(?Fournisseur $fournisseur): self
+    {
+        $this->fournisseur = $fournisseur;
 
         return $this;
     }
