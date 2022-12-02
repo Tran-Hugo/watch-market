@@ -1,3 +1,4 @@
-.test{
-    color: blue;
+.login_container form{
+    position: absolute;
+    top: 30%;
 }
