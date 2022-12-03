@@ -1,0 +1,8 @@
+html, 
+body {
+    height: 100%;
+}
+.logo{
+    width: 2rem;
+    height: 2rem;
+}
