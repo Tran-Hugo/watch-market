@@ -24,7 +24,10 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message'=>'Le champ est requis'
                         ])
-                ]
+                    ],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control'],
+
             ])
             ->add('lastname',TextType::class, [
                 'required' => true,
@@ -32,18 +35,26 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message'=>'Le champ est requis'
                         ])
-                ]
+                    ],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control'],
             ])
-            ->add('email',EmailType::class)
+            ->add('email',EmailType::class,[
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control'],
+            ])
             ->add('password',RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'options' => ['attr' => ['class' => 'password-field form-control'],'label_attr' => ['class' => 'form-label']],
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Validez votre mot de passe'],
             ])
-            ->add('add', SubmitType::class)
+            ->add('add', SubmitType::class,[
+                'attr'=>['class'=>'btn btn-submit mt-3'],
+                'label' => "S'inscrire"
+            ])
         ;
     }
 

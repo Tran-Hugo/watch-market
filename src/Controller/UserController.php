@@ -24,7 +24,7 @@ class UserController extends AbstractController
     public function index(UserPasswordHasherInterface $passwordHasher, Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['attr' => ['class' => 'registration_form']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

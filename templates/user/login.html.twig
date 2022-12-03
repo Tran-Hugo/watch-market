@@ -5,22 +5,25 @@
 {% endblock %}
 
 {% block body %}
-    <div class="login_container w-auto d-flex justify-content-center align-items-center">
-      <form class="col-6 shadow p-3 mb-5 bg-body rounded" method="post" action="{{path('login')}}">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" value="{{ last_user }}" name="_username" id="email" aria-describedby="emailHelp" placeholder="Entrez votre email">
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" name="_password" class="form-control" id="password">
-        </div>
-        {% if error %}
-        <div class="alert-danger text-center">
-          <strong class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</strong>
-        </div>
-        {% endif %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    <div class="login_container  h-100 w-auto d-flex justify-content-center align-items-center ">
+      <div class="login_card border rounded w-50 h-75 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="mb-5">Connectez-vous</h1>
+        <form class="col-6 shadow p-3 bg-body rounded" method="post" action="{{path('login')}}">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" value="{{ last_user }}" name="_username" id="email" aria-describedby="emailHelp" placeholder="Entrez votre email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="_password" class="form-control" id="password">
+          </div>
+          {% if error %}
+          <div class="alert-danger text-center">
+            <strong class="text-danger">{{ error.message }}</strong>
+          </div>
+          {% endif %}
+          <button type="submit" class="btn btn-submit">Se connecter</button>
+        </form>
+      </div>
     </div>
 {% endblock %}
