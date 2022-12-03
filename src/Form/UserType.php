@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -23,7 +24,11 @@ class UserType extends AbstractType
                 'constraints'=> [
                     new NotBlank([
                         'message'=>'Le champ est requis'
-                        ])
+                    ]),
+                    new Length([
+                        'min'=>2,
+                        'max'=>15,
+                    ])
                     ],
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control'],
@@ -34,7 +39,11 @@ class UserType extends AbstractType
                 'constraints'=> [
                     new NotBlank([
                         'message'=>'Le champ est requis'
-                        ])
+                    ]),
+                    new Length([
+                        'min'=>2,
+                        'max'=>15,
+                    ])
                     ],
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control'],
@@ -48,8 +57,22 @@ class UserType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field form-control'],'label_attr' => ['class' => 'form-label']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Validez votre mot de passe'],
+                'first_options'  => [
+                    'label' => 'Mot de passe',
+                    'constraints'=>[
+                        new Length([
+                            'min'=>5,
+                        ])
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'Validez votre mot de passe',
+                    'constraints'=>[
+                        new Length([
+                            'min'=>5,
+                        ])
+                    ]
+                ],
             ])
             ->add('add', SubmitType::class,[
                 'attr'=>['class'=>'btn btn-submit mt-3'],

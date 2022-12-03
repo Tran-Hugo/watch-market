@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('css/home.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="banner w-100 h-50 position-relative">
+    <img class="h-100 w-100" src="{{asset('img/banner.jpg')}}"/>
+    <form class="searchbar d-flex w-25">
+        <input class="form-control" placeholder="Rechercher"></input>
+        <button class="btn btn-dark text-white">Rechercher</button>
+    </form>
+</div>
+{% endblock %}
