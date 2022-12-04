@@ -37,6 +37,9 @@ class Article
     #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'Article')]
     private Collection $commandes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -142,6 +145,18 @@ class Article
         if ($this->commandes->removeElement($commande)) {
             $commande->removeArticle($this);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

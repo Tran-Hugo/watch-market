@@ -12,4 +12,52 @@
         <button class="btn btn-dark text-white">Rechercher</button>
     </form>
 </div>
+    <div class="d-flex justify-content-center">
+    <p class="w-25 text-center fs-5 accroche">Découvrez nos montres de prestigieuses marques suisses telles que Rolex, Omega, Breitling, Tag Heuer, Jaeger-LeCoultre... Watch Market vous garantit l'authenticité et la traçabilité des montres au meilleur prix.</p>
+    </div>
+    <h2 class="selection-title">Notre sélection :</h2>
+    <div class="carousel-container d-flex justify-content-center">    
+        <div id="carouselExampleControls" class="carousel carousel-dark slide w-75 h-100" data-bs-ride="carousel">
+        <div class="carousel-inner h-100 d-flex">
+            <div class="carousel-item h-100 w-100 active" data-bs-interval="10000">
+                <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
+                    <div class="watch-card h-100 w-75 d-flex justify-content-center">
+                        <img src="{{asset("img/montres/") ~ watchs.0.image }}" class="h-100" alt="...">
+                        <div class="card-info col-6">
+                            <h2 class="text-center">{{watchs.0.titre}}</h2>
+                            <p class="mt-5">{{watchs.0.description}}</p>
+                            <div>
+                                <p class="">{{watchs.0.categorie.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for watch in watchs | slice(1) %}
+            <div class="carousel-item h-100" data-bs-interval="10000">
+                <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
+                    <div class="watch-card h-100 w-75 d-flex justify-content-center">
+                        <img src="{{asset("img/montres/") ~ watch.image }}" class="h-100" alt="...">
+                        <div class="card-info col-6">
+                            <h2 class=" text-center">{{watch.titre}}</h2>
+                            <p>{{watch.description}}</p>
+                            <div>
+                                <p class="">{{watchs.0.categorie.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+    </div>
 {% endblock %}
