@@ -28,6 +28,11 @@
                             <p class="mt-5">{{watchs.0.description}}</p>
                             <div>
                                 <p class="">{{watchs.0.categorie.name}}</p>
+                                {% if app.user %}
+                                <button onclick="addCart({{watchs.0.id}},{{app.user.id}})">test</button>
+                                {% else %}
+                                <button onclick="addCart({{watchs.0.id}})">test</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -43,6 +48,11 @@
                             <p>{{watch.description}}</p>
                             <div>
                                 <p class="">{{watchs.0.categorie.name}}</p>
+                                {% if app.user %}
+                                <button onclick="addCart({{watch.id}},{{app.user.id}})">test</button>
+                                {% else %}
+                                <button onclick="addCart({{watch.id}})">test</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -60,4 +70,6 @@
         </button>
         </div>
     </div>
+    <script src="{{asset('js/cartService.js')}}">
+    </script>
 {% endblock %}
