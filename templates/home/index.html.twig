@@ -25,13 +25,14 @@
                         <img src="{{asset("img/montres/") ~ watchs.0.image }}" class="h-100" alt="...">
                         <div class="card-info col-6">
                             <h2 class="text-center">{{watchs.0.titre}}</h2>
-                            <p class="mt-5">{{watchs.0.description}}</p>
                             <div>
-                                <p class="">{{watchs.0.categorie.name}}</p>
+                                <span class="badge rounded-pill text-bg-dark">{{watchs.0.categorie.name}}</span>
+                                <p class="mb-0">{{watchs.0.description}}</p>
+                                <p class="mt-5 fw-bold">{{watchs.0.prix}}€</p>
                                 {% if app.user %}
-                                <button onclick="addCart({{watchs.0.id}},{{app.user.id}})">test</button>
+                                <button class="btn btn-dark text-white mt-5" onclick="addCart({{watchs.0.id}},{{app.user.id}})">Ajouter au panier</button>
                                 {% else %}
-                                <button onclick="addCart({{watchs.0.id}})">test</button>
+                                <button class="btn btn-dark text-white mt-5" onclick="addCart({{watchs.0.id}})">Ajouter au panier</button>
                                 {% endif %}
                             </div>
                         </div>
@@ -45,13 +46,14 @@
                         <img src="{{asset("img/montres/") ~ watch.image }}" class="h-100" alt="...">
                         <div class="card-info col-6">
                             <h2 class=" text-center">{{watch.titre}}</h2>
-                            <p>{{watch.description}}</p>
                             <div>
-                                <p class="">{{watchs.0.categorie.name}}</p>
+                                <span class="badge rounded-pill text-bg-dark">{{watch.categorie.name}}</span>
+                                <p class="mb-0">{{watch.description}}</p>
+                                <p class="mt-5 fw-bold">{{watch.prix}}€</p>
                                 {% if app.user %}
-                                <button onclick="addCart({{watch.id}},{{app.user.id}})">test</button>
+                                <button class="btn btn-dark text-white mt-5" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
                                 {% else %}
-                                <button onclick="addCart({{watch.id}})">test</button>
+                                <button class="btn btn-dark text-white mt-5" onclick="addCart({{watch.id}})">Ajouter au panier</button>
                                 {% endif %}
                             </div>
                         </div>
@@ -69,6 +71,38 @@
             <span class="visually-hidden">Next</span>
         </button>
         </div>
+    </div>
+    <h2 class="selection-title mt-3">Trouvez l'idée cadeau idéale :</h2>
+    <div class="expensive-container d-flex h-50 w-75 m-auto justify-content-around">
+    {% for watch in rich_watchs %}
+        <div class="article-card d-flex flex-column justify-content-center rounded align-items-center h-75 shadow">
+            <image class="h-50" src="{{asset("img/montres/") ~ watch.image }}"/>
+            <h2>{{watch.titre}}</h2>
+            <p>{{watch.description}}</p>
+            <p class="fw-bold">{{watch.prix}}€</p>
+            {% if app.user %}
+            <button class="btn btn-light text-black" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+            {% else %}
+            <button class="btn btn-light text-black" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <h2 class="selection-title mt-3">Une montre pour toutes les bourses :</h2>
+    <div class="expensive-container d-flex h-50 w-75 m-auto justify-content-around">
+    {% for watch in poor_watchs %}
+        <div class="article-card d-flex flex-column justify-content-center rounded align-items-center h-75 shadow">
+            <image class="h-50" src="{{asset("img/montres/") ~ watch.image }}"/>
+            <h2>{{watch.titre}}</h2>
+            <p>{{watch.description}}</p>
+            <p class="fw-bold">{{watch.prix}}€</p>
+            {% if app.user %}
+            <button class="btn btn-light text-black" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+            {% else %}
+            <button class="btn btn-light text-black" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+            {% endif %}
+        </div>
+    {% endfor %}
     </div>
     <script src="{{asset('js/cartService.js')}}">
     </script>

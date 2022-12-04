@@ -13,8 +13,12 @@ class HomeController extends AbstractController
     public function index(ArticleRepository $articleRepo): Response
     {
         $watchs = $articleRepo->findBy([],['id'=>'DESC'],6);
+        $rich_watchs = $articleRepo->findBy([],['prix'=>'DESC'],4);
+        $poor_watchs = $articleRepo->findBy([],['prix'=>'ASC'],4);
         return $this->render('home/index.html.twig', [
-            "watchs"=>$watchs
+            "watchs"=>$watchs,
+            "rich_watchs"=>$rich_watchs,
+            "poor_watchs"=>$poor_watchs
         ]);
     }
 }
