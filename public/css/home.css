@@ -3,3 +3,26 @@
     top: 50%;
     left: 40%;
 }
+
+.carousel-container{
+    height: 30%;
+}
+
+.watch-card{
+    width: 30%;
+}
+
+.accroche{
+    font-family: "Fira Sans";
+    font-style: italic;
+    margin: 3rem;
+}
+
+.selection-title{
+    margin-left: 4rem;
+    margin-bottom: 3rem;
+}
+
+.article-card{
+    width: 20%;
+}
