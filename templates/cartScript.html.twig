@@ -1,0 +1,38 @@
+<script src="{{asset('js/cartService.js')}}">
+</script> 
+{# if user exist add id user to cartJson and create cartJson+add idUser if doesn't exist #}
+    {% if app.user != null %}
+    <script>
+        let cartJson = JSON.parse(localStorage.getItem("cart"));
+        let idUser = {{app.user.id}};
+        if(cartJson){
+            cartJson["idUser"] = idUser;
+            cartJson = JSON.stringify(cartJson);
+            localStorage.setItem("cart", cartJson);
+        } else {
+            cartJson = {
+                idUser: idUser,
+                cart: [],
+            };
+            cartJson = JSON.stringify(cartJson);
+            localStorage.setItem("cart", cartJson);
+        }
+    </script>
+    {# if user disconected remove idUser and create cartJson if doesn't exist #}
+    {% else %}
+    <script>
+        let cartJson = JSON.parse(localStorage.getItem("cart"));
+        if(cartJson){
+            cartJson["idUser"]=null;
+            cartJson = JSON.stringify(cartJson);
+            localStorage.setItem("cart", cartJson);
+        } else {
+            cartJson = {
+                idUser: null,
+                cart: [],
+            };
+            cartJson = JSON.stringify(cartJson);
+            localStorage.setItem("cart", cartJson);
+        }
+    </script>
+    {% endif %}
