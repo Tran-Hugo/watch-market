@@ -20,6 +20,6 @@ class CommandeController extends AbstractController
         };
         $articles = $articleRepo->findBy($idList);
         dd($articles);
-        return $this->json();
+        return $this->json($articles);
     }
 }
