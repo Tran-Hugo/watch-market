@@ -1,8 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+<link href="{{ asset('css/cart.css') }}" rel="stylesheet"/>
+{% endblock %}
 
 {% block body %}
-<div class="cart-container">
+<div class="cart-page flex-column align-items-center">
+    <h1>Panier</h1>
+    <div class="cart-container">
+    </div>
+    <div class="d-flex justify-content-end w-50 total-container">
+        <h2 id="total">Total :0€</h2>
+    </div>
+    <div class="d-flex justify-content-end w-50">
+        <button class="btn btn-light text-black btn-commander me-2 clearButton">Vider le panier</button>
+        <button class="btn btn-dark text-white btn-commander commandButton">Commander</button>
+    </div>
 </div>
 <script>
     {#let articles = JSON.parse('{{articlesSerialized|json_encode}}');
@@ -14,6 +27,7 @@
         if(response.ok){
             let responseJson = await response.json();
             createCartVisual(responseJson);
+            totalCount(responseJson);
         } else {
             throw response.status;
         }  
@@ -24,20 +38,58 @@
         responseJson.forEach(watch => {
             let card = document.createElement('div');
             card.classList.add('cart-card');
-            card.id = 'article'+watch.id;
-            card.innerHTML = ` 
-            <image src="/img/montres/${watch.image}"/>
+            let img = document.createElement('img');
+            img.classList.add('card-img');
+            img.src=`/img/montres/${watch.image}`
+            card.appendChild(img);
+            let infoContainer = document.createElement('div');
+            infoContainer.classList.add('info-container');
+            card.appendChild(infoContainer);
+            infoContainer.innerHTML = ` 
             <h3>${watch.titre}</h3>
-            <p>${watch.prix}€</p>`;
+            <p>${watch.prix}€</p>
+            `;
             cartContainer.appendChild(card);
             let JSONcart = JSON.parse(localStorage.getItem('cart'));
             JSONcart["cart"].forEach(obj => {
                 if(watch.id === obj.id) {
-                    let quantity = `<p>quantité :${obj.quantity}</p>`;
-                    card.innerHTML+=quantity;
+                    // let quantity =`<p>quantité :${obj.quantity}</p>`;
+                    // card.innerHTML+=quantity;
+                    let quantityElement = document.createElement('p');
+                    quantityElement.innerText = "quantité :"+obj.quantity;
+                    infoContainer.appendChild(quantityElement);
                 }
             });
         });
     }
+    let total = 0;
+    function totalCount(responseJson){
+        let totalElement = document.getElementById('total');
+
+        responseJson.forEach(watch => {
+            let JSONcart = JSON.parse(localStorage.getItem('cart'));
+            JSONcart["cart"].forEach(obj => {
+                if(watch.id === obj.id) {
+                    let priceByWatch = watch.prix*obj.quantity;
+                    total+=priceByWatch;
+                }
+            })
+        });
+        totalElement.innerText = `Total : ${total}€`;
+    }
+
+    let clearButton = document.querySelector('.clearButton');
+    clearButton.addEventListener('click',()=>{
+        localStorage.removeItem('cart');
+        let cartContainer = document.querySelector('.cart-container');
+        let totalElement = document.getElementById('total');
+        cartContainer.innerHTML = ``;
+        totalElement.innerText = `Total : 0€`;
+    });
+    let commandButton = document.querySelector('.commandButton');
+    commandButton.addEventListener('click',async ()=>{
+        let response = await fetch("https://127.0.0.1:8000/order/new", {method:'POST', body:JSONcart,headers:{'accept':'application/json'}});
+        
+    });
 </script>
 {% endblock %}
