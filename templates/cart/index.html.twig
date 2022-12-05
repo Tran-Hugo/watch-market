@@ -5,6 +5,9 @@
 <div class="cart-container">
 </div>
 <script>
+    {#let articles = JSON.parse('{{articlesSerialized|json_encode}}');
+    console.log(articles);#}
+
     let JSONcart = localStorage.getItem("cart");
     window.addEventListener("DOMContentLoaded", async (event) => {
         let response = await fetch("https://127.0.0.1:8000/cart/getArticles", {method:'POST', body:JSONcart,headers:{'accept':'application/json'}});

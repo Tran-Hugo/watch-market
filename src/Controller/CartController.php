@@ -11,12 +11,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
-    #[Route('/cart', name: 'cart')]
+    #[Route('/cart', name: 'cart', methods:['POST', 'GET'])]
     public function index(): Response
     {
+        // if ($request->request->get('cartFormInput')) {
+        //     dd(json_decode($request->request->get('cartFormInput')));
+        // }
+        // $cart = json_decode($request->request->get('cartFormInput'),true);
+        // $idList = ['id'=>[]];
+        // foreach($cart["cart"] as $item){
+        //     array_push($idList["id"],$item["id"]);
+        // };
+        // $articles = $articleRepo->findBy($idList);
+        // $articlesSerialized = $serializer->serialize($articles, 'json',['groups' => 'panier']);
+        // $response = new Response($articlesSerialized,200,['content-type'=>"application/json"]);
         return $this->render('cart/index.html.twig', [
+            // "articles"=>$articles,
+            // "articlesSerialized"=>$response,
         ]);
     }
+
     #[Route('/cart/getArticles', name: 'getCart', methods:['POST','GET'])]
     public function getArticles(Request $request, ArticleRepository $articleRepo, SerializerInterface $serializer){
         $cart = json_decode($request->getContent(),true);
@@ -27,6 +41,5 @@ class CartController extends AbstractController
         $articles = $articleRepo->findBy($idList);
         $articlesSerialized = $serializer->serialize($articles, 'json',['groups' => 'panier']);
         return new Response($articlesSerialized,200,['content-type'=>"application/json"]);
-
     }
 }
