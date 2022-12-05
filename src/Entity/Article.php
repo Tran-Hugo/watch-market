@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -13,18 +14,23 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['panier'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['panier'])]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['panier'])]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups(['panier'])]
     private ?float $prix = null;
 
     #[ORM\Column]
+    #[Groups(['panier'])]
     private ?int $stock = null;
 
     #[ORM\ManyToOne(inversedBy: 'article')]
@@ -38,6 +44,7 @@ class Article
     private Collection $commandes;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['panier'])]
     private ?string $image = null;
 
     public function __construct()

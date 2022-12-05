@@ -17,8 +17,11 @@
         {% endblock %}
     </head>
     <body>
+
         {% include "nav.html.twig" %}
         {% block body %}{% endblock %}
         {% include "footer.html.twig" %}
+        {% include "modal.html.twig" %}
+        {% include "cartScript.html.twig" %}
     </body>
 </html>

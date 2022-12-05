@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<div class="cart-container">
+</div>
+<script>
+    {#let articles = JSON.parse('{{articlesSerialized|json_encode}}');
+    console.log(articles);#}
+
+    let JSONcart = localStorage.getItem("cart");
+    window.addEventListener("DOMContentLoaded", async (event) => {
+        let response = await fetch("https://127.0.0.1:8000/cart/getArticles", {method:'POST', body:JSONcart,headers:{'accept':'application/json'}});
+        if(response.ok){
+            let responseJson = await response.json();
+            createCartVisual(responseJson);
+        } else {
+            throw response.status;
+        }  
+    });
+
+    function createCartVisual(responseJson){
+        let cartContainer = document.querySelector('.cart-container');
+        responseJson.forEach(watch => {
+            let card = document.createElement('div');
+            card.classList.add('cart-card');
+            card.id = 'article'+watch.id;
+            card.innerHTML = ` 
+            <image src="/img/montres/${watch.image}"/>
+            <h3>${watch.titre}</h3>
+            <p>${watch.prix}€</p>`;
+            cartContainer.appendChild(card);
+            let JSONcart = JSON.parse(localStorage.getItem('cart'));
+            JSONcart["cart"].forEach(obj => {
+                if(watch.id === obj.id) {
+                    let quantity = `<p>quantité :${obj.quantity}</p>`;
+                    card.innerHTML+=quantity;
+                }
+            });
+        });
+    }
+</script>
+{% endblock %}
