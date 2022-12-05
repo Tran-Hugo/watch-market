@@ -11,7 +11,7 @@
           <a class="nav-link" aria-current="page" href="{{path('home')}}">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Panier <i class="fa-solid fa-bag-shopping"></i></a>
+          <a class="nav-link" href="{{path("cart")}}">Panier <i class="fa-solid fa-bag-shopping"></i></a>
         </li>
         {% if app.user != null %}
         <li class="nav-item dropdown">
@@ -34,7 +34,3 @@
     </div>
   </div>
 </nav>
-{# <script> 
-  let test = "{{ app.user.getId() }}"
-  console.log(test);
-</script> #}
