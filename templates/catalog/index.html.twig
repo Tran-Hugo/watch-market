@@ -19,9 +19,9 @@
                 <p>{{watch.description}}</p>
                 <p class="fw-bold">{{watch.prix}}€</p>
                 {% if app.user %}
-                <button class="btn btn-light text-black" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+                <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
                 {% else %}
-                <button class="btn btn-light text-black" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+                <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
                 {% endif %}
             </div>
         {% endfor %}
