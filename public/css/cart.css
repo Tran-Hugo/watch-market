@@ -1,0 +1,31 @@
+.cart-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 3rem;
+}
+.cart-container {
+  width: 50%;
+  height: fit-content;
+  border: 1px solid;
+}
+
+.cart-card {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+}
+
+.cart-card img {
+  width: 20%;
+}
+
+.total-container {
+  padding-inline: 3rem;
+}
+
+.btn-commander {
+  padding-inline: 5rem;
+}

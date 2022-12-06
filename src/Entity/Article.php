@@ -40,17 +40,9 @@ class Article
     #[ORM\JoinColumn(nullable: false)]
     private ?Fournisseur $fournisseur = null;
 
-    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'Article')]
-    private Collection $commandes;
-
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['panier'])]
     private ?string $image = null;
-
-    public function __construct()
-    {
-        $this->commandes = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -129,32 +121,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->addArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeArticle($this);
-        }
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
