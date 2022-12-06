@@ -1,111 +1,148 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<link href="{{ asset('css/home.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/catalog.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
-<div class="banner w-100 h-50 position-relative">
-    <img class="h-100 w-100" src="{{asset('img/banner.jpg')}}"/>
-    <form class="searchbar d-flex w-25" action={{path('search_watch')}}>
-        {# <input class="form-control" placeholder="Rechercher"></input>
-        <button class="btn btn-dark text-white">Rechercher</button> #}
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Votre montre..." aria-label="Rechercher" aria-describedby="Rechercher">
-            <button class="btn btn-secondary" type="submit" id="button-addon2">Rechercher</button>
+<div class="banner w-100 h-100 position-relative">
+    <img class="h-100 w-100" src="{{asset('img/human-hand.jpg')}}"/>
+    {# <div class=""> #}
+        <div class="position-absolute top-50 start-50 translate-middle text-center">
+            <span class=" text-white bg-dark fs-5 accroche">Découvrez nos montres de prestigieuses marques suisses telles que Rolex, Omega, Breitling, Tag Heuer, Jaeger-LeCoultre... Watch Market vous garantit l'authenticité et la traçabilité des montres au meilleur prix.</span>
+            <form class="d-flex" action={{path('search_watch')}}>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="search" placeholder="Votre montre..." aria-label="Rechercher" aria-describedby="Rechercher">
+                    <button class="btn btn-secondary" type="submit" id="button-addon2">Rechercher</button>
+                </div>
+            </form>
         </div>
-    </form>
+    {# </div> #}
 </div>
-    <div class="d-flex justify-content-center">
-    <p class="w-25 text-center fs-5 accroche">Découvrez nos montres de prestigieuses marques suisses telles que Rolex, Omega, Breitling, Tag Heuer, Jaeger-LeCoultre... Watch Market vous garantit l'authenticité et la traçabilité des montres au meilleur prix.</p>
+<div class="container">
+    <div class="text-center">
+        <h2 class="mt-3">Trending</h2>
+        <div class="border carousel-container d-flex justify-content-center">    
+            <div id="carouselExampleControls" class="carousel carousel-dark slide w-75 h-75" data-bs-ride="carousel">
+                <div class="carousel-inner h-100 d-flex">
+                    <div class="carousel-item h-100 w-100 active" data-bs-interval="10000">
+                        <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
+                            <div class="watch-card row align-items-center justify-content-center">
+                                <img src="{{asset("img/montres/") ~ watchs.0.image }}" class="col-6 h-75" alt="...">
+                                <div class="card-info col-6">
+                                    <h2 class="text-center">{{watchs.0.titre}}</h2>
+                                    <div>
+                                        <span class="badge rounded-pill text-bg-dark">{{watchs.0.categorie.name}}</span>
+                                        <p class="mb-0">{{watchs.0.description}}</p>
+                                        <p class="mt-5 fw-bold">{{watchs.0.prix}}€</p>
+                                        {% if app.user %}
+                                        <button class="btn btn-dark text-white mt-1" onclick="addCart({{watchs.0.id}},{{app.user.id}})">Ajouter au panier</button>
+                                        {% else %}
+                                        <button class="btn btn-dark text-white mt-1" onclick="addCart({{watchs.0.id}})">Ajouter au panier</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for watch in watchs | slice(1) %}
+                        <div class="carousel-item h-100" data-bs-interval="10000">
+                            <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
+                                <div class="watch-card row align-items-center justify-content-center">
+                                    <img src="{{asset("img/montres/") ~ watch.image }}" class="col-6 h-100" alt="...">
+                                    <div class="card-info col-6">
+                                        <h2 class=" text-center">{{watch.titre}}</h2>
+                                        <div>
+                                            <span class="badge rounded-pill text-bg-dark">{{watch.categorie.name}}</span>
+                                            <p class="mb-0">{{watch.description}}</p>
+                                            <p class="mt-5 fw-bold">{{watch.prix}}€</p>
+                                            {% if app.user %}
+                                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+                                            {% else %}
+                                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <h2 class="selection-title">Notre sélection :</h2>
-    <div class="carousel-container d-flex justify-content-center">    
-        <div id="carouselExampleControls" class="carousel carousel-dark slide w-75 h-100" data-bs-ride="carousel">
-        <div class="carousel-inner h-100 d-flex">
-            <div class="carousel-item h-100 w-100 active" data-bs-interval="10000">
-                <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
-                    <div class="watch-card h-100 w-75 d-flex justify-content-center">
-                        <img src="{{asset("img/montres/") ~ watchs.0.image }}" class="h-100" alt="...">
-                        <div class="card-info col-6">
-                            <h2 class="text-center">{{watchs.0.titre}}</h2>
-                            <div>
-                                <span class="badge rounded-pill text-bg-dark">{{watchs.0.categorie.name}}</span>
-                                <p class="mb-0">{{watchs.0.description}}</p>
-                                <p class="mt-5 fw-bold">{{watchs.0.prix}}€</p>
-                                {% if app.user %}
-                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watchs.0.id}},{{app.user.id}})">Ajouter au panier</button>
-                                {% else %}
-                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watchs.0.id}})">Ajouter au panier</button>
-                                {% endif %}
-                            </div>
+
+    <div class="bg-light text-center">
+        <h2 class="mt-3">Nos montres en promotion</h2>
+        <p class="mb-3">Retrouvez une sélection de montres à prix réduit. Choisissez celle qui vous plait le plus et
+offrez-vous un joli cadeau sans vous ruiner.</p>
+        <div class="catalog pb-5">
+            {% for watch in rich_watchs %}
+                <a href="{{ path('single_article',{'watchId': watch.id }) }}">
+                    <div class="article-card card align-items-center rounded shadow">
+                        <image class="card-img-top pt-2 h-50 w-50" src="{{asset("img/montres/") ~ watch.image }}"/>
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{watch.titre}}</h4>
+                            <p class="text-secondary">{{watch.description}}</p>
+                            <h6 class="fw-bold">{{watch.prix}} €</h6>
+                            {% if app.user %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+                            {% else %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
-            </div>
-            {% for watch in watchs | slice(1) %}
-            <div class="carousel-item h-100" data-bs-interval="10000">
-                <div class="watch-card-container h-100 w-100 d-flex justify-content-center">
-                    <div class="watch-card h-100 w-75 d-flex justify-content-center">
-                        <img src="{{asset("img/montres/") ~ watch.image }}" class="h-100" alt="...">
-                        <div class="card-info col-6">
-                            <h2 class=" text-center">{{watch.titre}}</h2>
-                            <div>
-                                <span class="badge rounded-pill text-bg-dark">{{watch.categorie.name}}</span>
-                                <p class="mb-0">{{watch.description}}</p>
-                                <p class="mt-5 fw-bold">{{watch.prix}}€</p>
-                                {% if app.user %}
-                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
-                                {% else %}
-                                <button class="btn btn-dark text-white mt-1" onclick="addCart({{watch.id}})">Ajouter au panier</button>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </a>
             {% endfor %}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    </div>
+
+    <div class="card mb-3 w-100" >
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{asset('img/holding-watch.jpg')}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">Nos marques de montres</h3>
+                    <p class="card-text">En plus de vingt ans d’existence, Montres and Co a réussi à s’imposer comme une enseigne de référence. Présente en ligne mais aussi de manière physique au travers d’un réseau de près de 40 magasins, elle met ses équipes d’horlogers à votre service dans tout le pays. Des légendaires marques Swiss Made, des montres de luxe intemporelles.</p>
+                    <p class="card-text"><small class="text-muted">Watch Market</small></p>
+                </div>
+            </div>
         </div>
     </div>
-    <h2 class="selection-title mt-3">Trouvez l'idée cadeau idéale :</h2>
-    <div class="expensive-container d-flex h-50 w-75 m-auto justify-content-around">
-    {% for watch in rich_watchs %}
-        <div class="article-card d-flex flex-column justify-content-center rounded align-items-center h-100 shadow">
-            <image class="h-50" src="{{asset("img/montres/") ~ watch.image }}"/>
-            <h2>{{watch.titre}}</h2>
-            <p>{{watch.description}}</p>
-            <p class="fw-bold">{{watch.prix}}€</p>
-            {% if app.user %}
-            <button class="btn btn-light text-black" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
-            {% else %}
-            <button class="btn btn-light text-black" onclick="addCart({{watch.id}})">Ajouter au panier</button>
-            {% endif %}
+    <div class="bg-light text-center">
+        <h2 class="mt-3">Nos nouveautés</h2>
+        <p class="mb-3">Retrouvez notre sélection de nouvelles montres tendances. Montres and Co élargit en permanence sa gamme
+pour votre plus grand plaisir !</p>
+        <div class="catalog pb-5">
+            {% for watch in poor_watchs %}
+                <a href="{{ path('single_article',{'watchId': watch.id }) }}">
+                    <div class="article-card card align-items-center rounded shadow">
+                        <image class="card-img-top pt-2 h-50 w-50" src="{{asset("img/montres/") ~ watch.image }}"/>
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{watch.titre}}</h4>
+                            <p class="text-secondary">{{watch.description}}</p>
+                            <h6 class="fw-bold">{{watch.prix}} €</h6>
+                            {% if app.user %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+                            {% else %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-    {% endfor %}
     </div>
-    <h2 class="selection-title mt-3">Une montre pour toutes les bourses :</h2>
-    <div class="expensive-container d-flex h-50 w-75 m-auto justify-content-around mb-3">
-    {% for watch in poor_watchs %}
-        <div class="article-card d-flex flex-column justify-content-center rounded align-items-center h-100 shadow">
-            <image class="h-50" src="{{asset("img/montres/") ~ watch.image }}"/>
-            <h2>{{watch.titre}}</h2>
-            <p>{{watch.description}}</p>
-            <p class="fw-bold">{{watch.prix}}€</p>
-            {% if app.user %}
-            <button class="btn btn-light text-black" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
-            {% else %}
-            <button class="btn btn-light text-black" onclick="addCart({{watch.id}})">Ajouter au panier</button>
-            {% endif %}
-        </div>
-    {% endfor %}
-    </div>   
+</div>
 {% endblock %}
