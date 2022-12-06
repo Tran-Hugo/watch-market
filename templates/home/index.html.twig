@@ -7,12 +7,12 @@
 {% block body %}
 <div class="banner w-100 h-50 position-relative">
     <img class="h-100 w-100" src="{{asset('img/banner.jpg')}}"/>
-    <form class="searchbar d-flex w-25">
+    <form class="searchbar d-flex w-25" action={{path('search_watch')}}>
         {# <input class="form-control" placeholder="Rechercher"></input>
         <button class="btn btn-dark text-white">Rechercher</button> #}
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Votre montre..." aria-label="Rechercher" aria-describedby="Rechercher">
-            <button class="btn btn-secondary" type="button" id="button-addon2">Rechercher</button>
+            <input type="text" class="form-control" name="search" placeholder="Votre montre..." aria-label="Rechercher" aria-describedby="Rechercher">
+            <button class="btn btn-secondary" type="submit" id="button-addon2">Rechercher</button>
         </div>
     </form>
 </div>
