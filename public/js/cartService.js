@@ -1,6 +1,10 @@
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
+var closeButton = document.getElementById("closeButton");
 span.onclick = function () {
+  modal.style.display = "none";
+};
+closeButton.onclick = function () {
   modal.style.display = "none";
 };
 window.onclick = function (event) {

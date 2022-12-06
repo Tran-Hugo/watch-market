@@ -90,4 +90,13 @@ class CommandeController extends AbstractController
             "order"=>$order,
         ]);
     }
+
+    #[Route('admin/allOrders', name: 'orders_admin')]
+    public function getAllOrders(CommandeRepository $repo)
+    {
+        $orders = $repo->findBy(array(), array('id' => 'ASC'));
+        return $this->render('admin/orderAdmin.html.twig', [
+            "orders"=>$orders,
+        ]);
+    }
 }
