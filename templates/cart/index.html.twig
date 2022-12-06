@@ -89,7 +89,13 @@
     let commandButton = document.querySelector('.commandButton');
     commandButton.addEventListener('click',async ()=>{
         let response = await fetch("https://127.0.0.1:8000/order/new", {method:'POST', body:JSONcart,headers:{'accept':'application/json'}});
-        
+        if(response.status == 500){
+            window.location.href = "https://127.0.0.1:8000/login";
+        } else if(response.status == 201){
+            localStorage.removeItem('cart');
+            window.location.href = "https://127.0.0.1:8000/";
+        }
+        // console.log(response.status);
     });
 </script>
 {% endblock %}
