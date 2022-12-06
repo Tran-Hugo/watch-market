@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-opacity-25">
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{path('home')}}">Watch Market<span><img src="{{ asset('img/logo.png') }}" class="logo" alt="Logo"></span></a>
+    <a class="navbar-brand text-light" href="{{path('home')}}"><span><img src="{{ asset('img/logo.png') }}" class="logo" alt="Logo"></span> Watch Market</a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,13 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{path('home')}}">Accueil</a>
+          <a class="nav-link text-light" aria-current="page" href="{{path('home')}}">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{path('catalog')}}">Catalogue</a>
+          <a class="nav-link text-light" aria-current="page" href="{{path('catalog')}}">Catalog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{path('cart')}}">Panier <i class="fa-solid fa-bag-shopping"></i></a>
+          <a class="nav-link text-light" href="{{path('cart')}}">Panier  <i class="fa-solid fa-bag-shopping"></i></a>
         </li>
         {% if app.user != null %}
         <li class="nav-item dropdown">
@@ -30,7 +30,7 @@
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ path('login') }}">Se connecter</a>
+          <a class="btn btn-light" aria-current="page" href="{{ path('login') }}">Se connecter</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{{ path('registration') }}">S'inscrire</a>
