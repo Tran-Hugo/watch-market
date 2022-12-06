@@ -39,6 +39,15 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchedWatch($search){
+        return $this->createQueryBuilder('w')
+            ->where('w.titre LIKE :s')
+            ->orWhere('w.description LIKE :s')
+            ->setParameter('s','%'.$search.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
