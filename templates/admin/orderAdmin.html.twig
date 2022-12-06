@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<div class="myOrdersContainer mt-5 w-100 h-100 d-flex justify-content-start align-items-center flex-column">
+    <h1>Mes commandes :</h1>
+    {% for order in orders %}
+        <a href="{{path('order_item',{id:order.id})}}">Commande n°: {{order.id}}</a>
+    {% endfor %}
+</div>
+
+{% endblock %}
