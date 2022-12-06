@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use Exception;
+use DateTimeImmutable;
 use App\Entity\Commande;
 use App\Entity\OrderItem;
 use App\Repository\ArticleRepository;
-use DateTimeImmutable;
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,5 +71,23 @@ class CommandeController extends AbstractController
                 return new Response('Created',201);
             }
         }
+    }
+
+    #[Route('/myOrders', name: 'myOrders')]
+    public function getOrder(CommandeRepository $repo)
+    {
+        $user = $this->security->getUser();
+        $orders = $repo->findBy(['User'=>$user]);
+        return $this->render('commande/myOrders.html.twig', [
+            "orders"=>$orders,
+        ]);
+    }
+    #[Route('/myOrders/{id}', name: 'order_item')]
+    public function getOrderItem(CommandeRepository $repo,$id)
+    {
+        $order = $repo->find($id);
+        return $this->render('commande/orderItem.html.twig', [
+            "order"=>$order,
+        ]);
     }
 }
