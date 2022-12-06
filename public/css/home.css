@@ -8,6 +8,10 @@
   height: 30%;
 }
 
+.watch-card img {
+  height: 20rem;
+}
+
 .accroche {
   font-family: "Fira Sans";
   font-style: italic;
