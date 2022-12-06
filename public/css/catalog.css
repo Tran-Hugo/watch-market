@@ -1,0 +1,15 @@
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(
+        4,2fr
+    );
+    grid-auto-flow: row dense;
+    
+    /* extra styles */
+    grid-gap: 0.5rem;
+}
+
+.article-card {
+    max-width: 200px;
+    max-height: 500px;
+}
