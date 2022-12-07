@@ -27,7 +27,7 @@
             <li><a class="dropdown-item" href="{{path('admin')}}">Administration</a></li>
             {% endif %}
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a></li>
+            <li><a class="dropdown-item" href="{{ path('logout') }}" onclick="removeCart()">Se déconnecter</a></li>
           </ul>
         </li>
         {% else %}
@@ -45,6 +45,11 @@
     <input id="cartFormInput" name="cartFormInput" type="hidden"/>
   </form> #}
 </nav>
+<script>
+function removeCart() {
+  localStorage.removeItem('cart');
+}
+</script>
 
 {# <script>
 //   let cartForm = document.getElementById('cartForm');
