@@ -8,7 +8,6 @@
 {% block body %}
 <div class="banner w-100 h-100 position-relative">
     <img class="h-100 w-100" src="{{asset('img/human-hand.jpg')}}"/>
-    {# <div class=""> #}
         <div class="position-absolute top-50 start-50 translate-middle text-center">
             <span class=" text-white d-block fs-5 accroche">Découvrez nos montres de prestigieuses marques suisses telles que Rolex, Omega, Breitling, Tag Heuer, Jaeger-LeCoultre... Watch Market vous garantit l'authenticité et la traçabilité des montres au meilleur prix.</span>
             <form class="d-flex" action={{path('search_watch')}}>
@@ -18,7 +17,6 @@
                 </div>
             </form>
         </div>
-    {# </div> #}
 </div>
 <div class="container">
     <div class="text-center">
@@ -84,24 +82,26 @@
     <div class="bg-light text-center">
         <h2 class="mt-3">Nos montres en promotion</h2>
         <p class="mb-3">Retrouvez une sélection de montres à prix réduit. Choisissez celle qui vous plait le plus et
-offrez-vous un joli cadeau sans vous ruiner.</p>
-        <div class="catalog pb-5">
+                        offrez-vous un joli cadeau sans vous ruiner.</p>
+        <div class="row pb-5 m-3 justify-content-around">
             {% for watch in rich_watchs %}
-                <a href="{{ path('single_article',{'watchId': watch.id }) }}">
-                    <div class="article-card card align-items-center rounded shadow">
+                <div class="article-card card align-items-center rounded shadow pb-5 m-3">
+                    <a href="{{ path('single_article',{'watchId': watch.id }) }}">
                         <image class="card-img-top pt-2 h-50 w-50" src="{{asset("img/montres/") ~ watch.image }}"/>
                         <div class="card-body text-center">
                             <h4 class="card-title">{{watch.titre}}</h4>
                             <p class="text-secondary">{{watch.description}}</p>
                             <h6 class="fw-bold">{{watch.prix}} €</h6>
-                            {% if app.user %}
-                            <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
-                            {% else %}
-                            <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
-                            {% endif %}
+                            
                         </div>
-                    </div>
-                </a>
+                    </a>
+                        {% if app.user %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
+                        {% else %}
+                            <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
+                        {% endif %}
+                    
+                </div>
             {% endfor %}
         </div>
     </div>
@@ -124,23 +124,23 @@ offrez-vous un joli cadeau sans vous ruiner.</p>
         <h2 class="mt-3">Nos nouveautés</h2>
         <p class="mb-3">Retrouvez notre sélection de nouvelles montres tendances. Montres and Co élargit en permanence sa gamme
 pour votre plus grand plaisir !</p>
-        <div class="catalog pb-5">
+        <div class="row pb-5 m-3 justify-content-around">
             {% for watch in poor_watchs %}
-                <a href="{{ path('single_article',{'watchId': watch.id }) }}">
-                    <div class="article-card card align-items-center rounded shadow">
-                        <image class="card-img-top pt-2 h-50 w-50" src="{{asset("img/montres/") ~ watch.image }}"/>
-                        <div class="card-body text-center">
-                            <h4 class="card-title">{{watch.titre}}</h4>
-                            <p class="text-secondary">{{watch.description}}</p>
-                            <h6 class="fw-bold">{{watch.prix}} €</h6>
-                            {% if app.user %}
+                    <div class="article-card card align-items-center rounded shadow pb-5 m-3">
+                        <a href="{{ path('single_article',{'watchId': watch.id }) }}">
+                            <image class="card-img-top pt-2 h-50 w-50" src="{{asset("img/montres/") ~ watch.image }}"/>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">{{watch.titre}}</h4>
+                                <p class="text-secondary">{{watch.description}}</p>
+                                <h6 class="fw-bold">{{watch.prix}} €</h6>
+                            </div>
+                        </a>
+                        {% if app.user %}
                             <button class="btn btn-dark" onclick="addCart({{watch.id}},{{app.user.id}})">Ajouter au panier</button>
-                            {% else %}
+                        {% else %}
                             <button class="btn btn-dark" onclick="addCart({{watch.id}})">Ajouter au panier</button>
-                            {% endif %}
-                        </div>
+                        {% endif %}                        
                     </div>
-                </a>
             {% endfor %}
         </div>
     </div>
