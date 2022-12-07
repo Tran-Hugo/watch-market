@@ -19,8 +19,10 @@
   margin-bottom: 3rem;
 }
 
-/* @media screen and (min-width: 1400px) {
-  .article-card {
-    height: 75% !important;
+ @media screen and (max-width: 350px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+    
   }
-} */
+}
