@@ -16,6 +16,9 @@
   font-family: "Fira Sans";
   font-style: italic;
   margin: 3rem;
+  background-color: #211f21;
+  padding: 1rem;
+  border-radius: 1em;
 }
 
 .selection-title {
