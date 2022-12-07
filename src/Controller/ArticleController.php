@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('admin/article')]
 class ArticleController extends AbstractController
 {
+    private $parameterBag;
+    public function __construct(ParameterBagInterface $parameterBag)
+    {
+        $this->parameterBag=$parameterBag;
+    }
     #[Route('/', name: 'app_article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -29,6 +35,12 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form["image"]->getData();
+            $imgNewName = explode('.',$img->getClientOriginalName())[0].'-'.strtotime(date('Y-m-d H:i:s')).'.'.$img->guessExtension();
+            $directory = $this->parameterBag->get('kernel.project_dir')."\public\img\montres";
+            $img->move($directory,$imgNewName);
+            $article->setImage($imgNewName);
+            
             $articleRepository->save($article, true);
 
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
